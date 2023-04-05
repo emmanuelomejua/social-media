@@ -1,18 +1,29 @@
 import { MoreVert, ThumbUpAltOutlined } from '@mui/icons-material'
 import './post.css'
-import img from '../../assets/pic1.jpg'
-import pImg from '../../assets/thum1.jpg'
 import heart from '../../assets/hearts.png'
+import like from '../../assets/like1.png'
+import { Users } from '../../data'
+import { useState } from 'react'
 
-const Post = () => {
+const Post = ({post}) => {
+    const [liked, setLiked] = useState(post.liked)
+    const [isLliked, setisLLiked] = useState(false)
+
+    const handleLike = (e) => {
+        
+    }
+
+
+    const user = Users.filter((u)=> u.id === 1)
+    console.log(user[0].username)
   return (
     <section className='post'>
         <div className="postWrap">
             <div className="postTop">
                 <div className="topLeft">
-                    <img src={img} alt="" className="PPImg" />
-                    <span className="PUname">Mazi Tompolo</span>
-                    <span className="pDate">5 min . ago</span>
+                    <img src={Users.filter((u)=>u.id === post.userId)[0].profilePics} alt="" className="PPImg" />
+                    <span className="PUname">{Users.filter((u)=>u.id === post.userId)[0].username}</span>
+                    <span className="pDate">{post.date}</span>
                 </div>
                 <div className="topRight">
                     <MoreVert/>
@@ -20,17 +31,17 @@ const Post = () => {
             </div>
 
             <div className="postCenter">
-                <span className="postText">Hey kid! This is my first post here</span>
-                <img src={pImg} alt="" className="pImg" />
+                <span className="postText">{post?.desc}</span>
+                <img src={post.photo} alt="" className="pImg" />
             </div>
             <div className="postBottom">
                 <div className="PBleft">
-                    <ThumbUpAltOutlined className="likeIcon"/>
-                   <img src={heart} alt="" className="likeIcon" />
-                   <span className="likeCounter">12 </span>
+                   <img src={like} alt="" className="likeIcon" onClick={handleLike}/> 
+                   <img src={heart} alt="" className="likeIcon" onClick={handleLike}/>
+                   <span className="likeCounter">{liked} </span>
                 </div>
                 <div className="PBright">
-                    <span className='pComment'>21 comments</span>
+                    <span className='pComment'>{post.comment} comments</span>
                 </div>
             </div>
         </div>

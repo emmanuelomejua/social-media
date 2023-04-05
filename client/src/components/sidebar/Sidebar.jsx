@@ -1,6 +1,8 @@
 import { Bookmark, Chat, Event, Group, HelpOutline, PlayCircleFilledOutlined, RssFeed, School, WorkOutline } from '@mui/icons-material'
 import './sidebar.css'
 import img from '../../assets/pic3.jpg'
+import Friend from '../friends/Friend'
+import { Users } from '../../data'
 
 const Sidebar = () => {
   return (
@@ -57,60 +59,11 @@ const Sidebar = () => {
         <hr className='sideHr'/>
 
         <ul className='sideFriendList'>
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
-
-            
-            <li className='sideFriend'>
-                <img src={img} alt='' className='sidebarFImage'/>
-                <span className='sideFriendName'>Jane Goodness</span>
-            </li>
+            {
+                Users.map((u)=> (
+                    <Friend key={u.id} user={u}/>
+                ))
+            } 
         </ul>
       </div>
     </section>
