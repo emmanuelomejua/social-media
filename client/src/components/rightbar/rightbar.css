@@ -68,3 +68,47 @@
 .rbUname{
     font-weight: 500;
 }
+
+.rbTitle{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.rightbarInfo{
+    margin-bottom: 30px;
+}
+
+.rightbarInfoItem{
+    margin-bottom: 10px;
+}
+
+.infoKey{
+    font-weight: 500;
+    margin-right: 15px;
+    color: #555;
+}
+
+.infoValue{
+    font-weight: 300;
+}
+
+.rbFollowings{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.rbFollowing{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.rbFImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+}

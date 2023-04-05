@@ -13,7 +13,6 @@ const Feed = () => {
             <Post key={p.id} post={p}/>
           ))
         }
-
       </div>
     </section>
   )

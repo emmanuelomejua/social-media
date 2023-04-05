@@ -1,16 +1,17 @@
-import { MoreVert, ThumbUpAltOutlined } from '@mui/icons-material'
+import { MoreVert } from '@mui/icons-material'
 import './post.css'
 import heart from '../../assets/hearts.png'
-import like from '../../assets/like1.png'
+import likeIcon from '../../assets/like1.png'
 import { Users } from '../../data'
 import { useState } from 'react'
 
 const Post = ({post}) => {
-    const [liked, setLiked] = useState(post.liked)
-    const [isLliked, setisLLiked] = useState(false)
+    const [like, setLike] = useState(post.like)
+    const [isLiked, setIsLiked] = useState(false)
 
-    const handleLike = (e) => {
-        
+    const handleLike = () => {
+        setLike(isLiked ? like - 1 : like + 1)
+        setIsLiked(!isLiked)
     }
 
 
@@ -36,9 +37,9 @@ const Post = ({post}) => {
             </div>
             <div className="postBottom">
                 <div className="PBleft">
-                   <img src={like} alt="" className="likeIcon" onClick={handleLike}/> 
+                   <img src={likeIcon} alt="" className="likeIcon" onClick={handleLike}/> 
                    <img src={heart} alt="" className="likeIcon" onClick={handleLike}/>
-                   <span className="likeCounter">{liked} </span>
+                   <span className="likeCounter">{like} </span>
                 </div>
                 <div className="PBright">
                     <span className='pComment'>{post.comment} comments</span>
