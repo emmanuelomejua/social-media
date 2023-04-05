@@ -1,0 +1,28 @@
+.rightbar{
+    flex: 3.5;
+}
+
+.rightbarWrap{
+    padding: 20px 20px 0px 0px;
+}
+
+.birthdayCont{
+    display: flex;
+    align-items: center;
+}
+
+.birthdayImg{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.birthdayText{
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.ads{
+    width: 100%;
+    border-radius: 5px;
+}
