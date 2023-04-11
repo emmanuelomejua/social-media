@@ -12,15 +12,15 @@ const updateUser = async (req, res) => {
             } catch (err) {
                 res.status(500).json(err.message)
             }
-        }
-
+        } else {
             try {
-                const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body})
+                const user = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
                 res.status(200).json('Account updated')
             } catch (err) {
                 res.status(500).json(err.message)
             }
-      
+        }
+
     } else {
         return res.status(403).json('You are not authorized this action')
     }

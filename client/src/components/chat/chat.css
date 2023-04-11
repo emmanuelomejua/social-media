@@ -1,0 +1,22 @@
+.chat{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.chat:hover{
+    background-color: lightgray;
+}
+
+.chatImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chatName{
+    font-weight: 600;
+}
