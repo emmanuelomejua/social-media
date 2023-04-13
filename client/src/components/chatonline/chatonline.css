@@ -1,0 +1,32 @@
+.chatonline{
+    margin-top: 10px;
+}
+
+.chatonlineF{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.chatonlineImgC{
+    position: relative;
+}
+
+.chatonlineImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid whitesmoke;
+}
+
+.chatonlineB{
+    width: 10px;
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    background-color: limegreen;
+    top: 2px;
+    right: 0;
+}

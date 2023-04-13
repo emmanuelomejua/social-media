@@ -14,10 +14,48 @@
     border-bottom: 1px solid lightgray;
 }
 
+.menuInput:focus{
+    outline: .5px solid lightgray;
+}
+
 .chatBox{
     flex: 5.5;
 }
 
+.boxWrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.boxTop{
+    height: 100vh;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.boxBottom{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatMsgInput{
+    width: 80%;
+    height: 90px;
+    padding: 10px;
+}
+
+.chatBtn{
+    width: 70px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: teal;
+    cursor: pointer;
+}
 .chatOnline{
     flex: 3;
 }
