@@ -15,6 +15,7 @@ const usersRoute = require('./routes/usersRoute');
 const authRoute = require('./routes/authRoute');
 const postRoute = require('./routes/postRoute')
 const chatRoute = require('./routes/chatRoute')
+const msgRoute = require('./routes/msgRoute')
 
 
 //connect to DB
@@ -38,7 +39,7 @@ app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
 app.use('/api/chat', chatRoute)
-
+app.use('api/msg', msgRoute)
 
 
 //bind with express server
