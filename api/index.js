@@ -14,6 +14,7 @@ const { json, urlencoded } = express;
 const usersRoute = require('./routes/usersRoute');
 const authRoute = require('./routes/authRoute');
 const postRoute = require('./routes/postRoute')
+const chatRoute = require('./routes/chatRoute')
 
 
 //connect to DB
@@ -36,6 +37,7 @@ app.use(cors({
 app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
+app.use('/api/chat', chatRoute)
 
 
 
