@@ -1,10 +1,19 @@
-import { Bookmark, Chat, Event, Group, HelpOutline, PlayCircleFilledOutlined, RssFeed, School, WorkOutline } from '@mui/icons-material'
+import { Bookmark, Chat, Event, ExitToAppRounded, Group, HelpOutline, PlayCircleFilledOutlined, RssFeed, School, WorkOutline } from '@mui/icons-material'
 import './sidebar.css'
 import img from '../../assets/pic3.jpg'
 import Friend from '../friends/Friend'
 import { Users } from '../../data'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/authContext'
+import { Logout } from '../../context/authActions'
 
 const Sidebar = () => {
+    const {user, dispatch} = useContext(AuthContext)
+
+    const handleLogout = () => {
+        dispatch({type: 'LOGOUT'})
+    }
+
   return (
     <section className='sidebar'>
       <div className='sidebarWrapper'>
@@ -52,6 +61,11 @@ const Sidebar = () => {
             <li className='sidebarListItem'>
                 <School className='icon'/>
                 <span className='text'>Courses</span>
+            </li>
+
+            <li className='sidebarListItem' onClick={handleLogout}>
+                <ExitToAppRounded className='icon'/>
+                <span className='text'>Logout</span>
             </li>
         </ul>
 

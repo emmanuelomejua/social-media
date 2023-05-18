@@ -40,16 +40,15 @@ const Register = async (req, res) => {
 
 //login
 const Login = async (req, res) => {
+    const user = await User.findOne({email: req.body.email})
+    
     try {
-        const { email } = req.body
-
-        const user = await User.findOne({email: req.body.email})
         if(!user){
-            res.status(404).json('user does not registered')
+            res.status(400).json('user does not registered')
         } else {
             const vPassword = await bcrypt.compare(req.body.password, user.password)
             if(!vPassword){
-                res.status(400).json('Incorrect password')
+                res.status(400).json('Incorrect password or username')
             } else {
                 const {isAdmin, password, ...otherDetails} = user._doc
                 res.status(200).json({...otherDetails})

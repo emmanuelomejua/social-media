@@ -19,7 +19,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
-        min: [4, 'Password must be at least 4 characters']
+        min: [4, 'Password must be at least 4 characters'],
+        max: 25,
     },
     profilePic: {
         type: String,

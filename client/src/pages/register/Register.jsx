@@ -1,7 +1,41 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './register.css'
+import { useState } from 'react'
+import axios from 'axios'
+import { apiRoute } from '../../utils/API'
 
 const Register = () => {
+
+  const navigate = useNavigate()
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const handleChange = (e) => {
+      e.preventDefault()
+      setUser({...user, [e.target.name]: e.target.value})
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const {username, email, password} = user
+    try {
+      const res = await axios.post(apiRoute + 'auth/register', {
+        username,
+        email,
+        password
+      })
+      res.data && navigate('/')
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(user)
+
   return (
     <div className='login'>
     <div className="loginWrap">
@@ -10,10 +44,48 @@ const Register = () => {
           <span className="loginDesc">Connect with friends and the world around you with Tompolo</span>
       </div>
       <div className="loginRight">
-          <div className="loginBox">
-              <input type="email" className="loginInput" placeholder='Email'/>
-              <input type="password" className="loginInput" placeholder='Password'/>
-              <input type="password" className="loginInput" placeholder='Confirm Password'/>
+          <form className="loginBox" onSubmit={handleSubmit}>
+              <input 
+              type="text" 
+              name='username' 
+              value={user.username}
+              className="loginInput" 
+              placeholder='Username' 
+              onChange={handleChange}
+              required
+              />  
+
+              <input 
+              type="email" 
+              name='email' 
+              value={user.email}
+              className="loginInput" 
+              placeholder='Email'
+              onChange={handleChange}
+              required
+              />
+
+              <input 
+              type="password" 
+              name='password' 
+              value={user.password}
+              className="loginInput" 
+              placeholder='Password' 
+              onChange={handleChange}
+              min={4}
+              required
+              />
+
+              <input 
+              type="password" 
+              name='confirmPassword' 
+              value={user.confirmPassword}
+              className="loginInput" 
+              placeholder='Confirm Password' 
+              onChange={handleChange}
+              pattern={user.password}
+              required
+              />
 
               <button className='loginBtn' type='submit'>Sign Up</button>
               <span className="loginText">Already Registered?</span>
@@ -21,7 +93,7 @@ const Register = () => {
               <button className='rBtn'>Login</button>
               </Link>
              
-          </div>
+          </form>
       </div>
     </div>
   </div>

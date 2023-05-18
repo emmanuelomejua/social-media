@@ -61,6 +61,10 @@
     cursor: pointer;
 }
 
+.loginBtn:disabled{
+    cursor: not-allowed;
+}
+
 .loginText{
     text-align: center;
     color: #1775ee; 
