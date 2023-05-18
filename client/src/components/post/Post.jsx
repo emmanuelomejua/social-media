@@ -3,27 +3,43 @@ import './post.css'
 import heart from '../../assets/hearts.png'
 import likeIcon from '../../assets/like1.png'
 import { Users } from '../../data'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { apiRoute } from '../../utils/API'
 
 const Post = ({post}) => {
     const [like, setLike] = useState(post.like)
     const [isLiked, setIsLiked] = useState(false)
+    const [user, setUser] = useState({})
 
     const handleLike = () => {
         setLike(isLiked ? like - 1 : like + 1)
         setIsLiked(!isLiked)
     }
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await axios.get(apiRoute + `users/${post.userId}`)
+                setUser(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    fetchUser()
+    }, [post.userId])
 
-    const user = Users.filter((u)=> u.id === 1)
-    console.log(user[0].username)
+
+    // const user = Users.filter((u)=> u.id === 1)
+    // console.log(user[0].username)
+
   return (
     <section className='post'>
         <div className="postWrap">
             <div className="postTop">
                 <div className="topLeft">
-                    <img src={Users.filter((u)=>u.id === post.userId)[0].profilePics} alt="" className="PPImg" />
-                    <span className="PUname">{Users.filter((u)=>u.id === post.userId)[0].username}</span>
+                    <img src={user.profilePics} alt="" className="PPImg" />
+                    <span className="PUname">{user?.username}</span>
                     <span className="pDate">{post.date}</span>
                 </div>
                 <div className="topRight">

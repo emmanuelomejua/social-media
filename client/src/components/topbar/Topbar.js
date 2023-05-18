@@ -7,7 +7,7 @@ const Topbar = () => {
   return (
     <nav className='topbar'>
         <section className='topbarLeft'>
-            <span className='logo'>Tompolo Social</span>
+            <span className='logo'>E-Social</span>
         </section>
 
         <section className='topbarCenter'>

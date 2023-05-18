@@ -8,7 +8,6 @@ const userSchema = new Schema({
         required:[ true, 'This is a required field'],
         min: 4,
         max: 25,
-        unique: true
     },
     email: {
         type: String,
