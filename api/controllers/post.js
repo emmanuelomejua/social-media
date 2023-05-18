@@ -89,5 +89,18 @@ const getTimelinePost = async (req, res) => {
     }
 }
 
+//get user's post
+const getUserPost = async (req, res) => {
 
-module.exports = { createPost, updatePost, deletePost, likePost, getPost, getTimelinePost }
+    try {
+        const user = await Post.find({username: req.params.username})
+        const post = await Post.find({userId: user._id})
+
+        res.status(200).json(post)
+    } catch (err) {getUserPost
+        res.status(500).json(err.message)
+    }
+}
+
+
+module.exports = { createPost, updatePost, deletePost, likePost, getPost, getTimelinePost, getUserPost }

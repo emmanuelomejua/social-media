@@ -5,7 +5,7 @@ import img from '../../assets/pic3.jpg'
 import Online from '../online/Online'
 import {Users} from '../../data'
 
-const Rightbar = ({profile}) => {
+const Rightbar = ({user}) => {
   const HomeRightbar = () => {
     return(
       <>
@@ -33,17 +33,17 @@ const Rightbar = ({profile}) => {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="infoKey">City:</span>
-            <span className="infoValue">Port Harcourt</span>
+            <span className="infoValue">{user.city}</span>
           </div>
 
           <div className="rightbarInfoItem">
             <span className="infoKey">From:</span>
-            <span className="infoValue">Abia</span>
+            <span className="infoValue">{user.from}</span>
           </div>
 
           <div className="rightbarInfoItem">
             <span className="infoKey">Relationship:</span>
-            <span className="infoValue">Single</span>
+            <span className="infoValue">{user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : ''}</span>
           </div>
         </div>
 
@@ -88,7 +88,7 @@ const Rightbar = ({profile}) => {
   return (
     <div className='rightbar'>
         <div className="rightbarWrap">
-          {profile ? <ProfileRightbar/> : <HomeRightbar/>}
+          {user ? <ProfileRightbar/> : <HomeRightbar/>}
         </div>
     </div>
   )
