@@ -18,7 +18,7 @@ const newChat = async (req, res) => {
 const getUserChat = async (req, res) => {
     try {
         const chat = await Chat.find({
-            members: { $in: [req.URLSearchParams.userId] }
+            members: { $in: [req.params.userId] }
         });
         res.status(200).json(chat)
     } catch (err) {

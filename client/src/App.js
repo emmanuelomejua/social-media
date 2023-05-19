@@ -1,10 +1,6 @@
 import './app.css'
-import Home from './pages/home/Home'
-import Login from './pages/login/Login';
-import Profile from './pages/profile/Profile';
-import Register from './pages/register/Register';
-import Messenger from './pages/messenger/Messeger'
-import { Routes, Route } from 'react-router-dom'
+import { Home, Login, Profile, Register, Messenger} from './pages/index'
+import { Routes, Route} from 'react-router-dom'
 import { useContext } from 'react';
 import { AuthContext } from './context/authContext';
 

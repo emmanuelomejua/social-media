@@ -1,5 +1,5 @@
 import './online.css'
-import img from '../../assets/pic3.jpg'
+
 
 const Online = ({user}) => {
   return (

@@ -1,8 +1,6 @@
 import './rightbar.css'
-import gift from '../../assets/gift.png'
-import ads from '../../assets/HP-Spectre-x360-16-9-768x512.jpg'
-import img from '../../assets/pic3.jpg'
-import Online from '../online/Online'
+import { birthday, img1, ads} from '../../constants/images'
+import {Online} from '../../components/index'
 import {Users} from '../../data'
 
 const Rightbar = ({user}) => {
@@ -10,7 +8,7 @@ const Rightbar = ({user}) => {
     return(
       <>
           <div className="birthdayCont">
-            <img src={gift} alt="" className="birthdayImg" />
+            <img src={birthday} alt="" className="birthdayImg" />
             <span className="birthdayText"><b>Goodness Jane</b> and 3 <b>others</b> have birthday today</span>
             </div>
           <img src={ads} alt="" className="rightAd" />
@@ -51,31 +49,31 @@ const Rightbar = ({user}) => {
 
         <div className="rbFollowings">
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
 
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
 
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
 
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
 
           <div className="rbFollowing">
-            <img src={img} alt="" className="rbFImg" />
+            <img src={img1} alt="" className="rbFImg" />
             <span className="rbName">Chisom Oniel</span>
           </div>
         </div>

@@ -39,7 +39,7 @@ app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
 app.use('/api/chat', chatRoute)
-app.use('api/msg', msgRoute)
+app.use('/api/msg', msgRoute)
 
 
 //bind with express server
@@ -48,3 +48,6 @@ const port = process.env.PORT
 app.listen(port, err=> {
     !err ? log(`Server active at port ${port}`) : error(err.message)
 })
+
+
+//dcentr-finance-landing repository
