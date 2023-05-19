@@ -19,8 +19,8 @@ function App() {
         <Route exact path='/' element={user ? <Home/> : <Login/>}/>
 
         <Route exact path='/profile/:username' element={user ? <Profile/> : <Login/>}/>
-        <Route exact path='/register' element={user ? <Register/> : <Home/>}/>
-        <Route exact path='/login' element={user ? <Login/> : <Home/>}/>
+        <Route exact path='/register' element={!user ? <Register/> : <Home/>}/>
+        <Route exact path='/login' element={!user ? <Login/> : <Home/>}/>
         <Route exact path='/messenger' element={user ?<Messenger/> :  <Login/>}/>
       
     </Routes>

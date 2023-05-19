@@ -33,12 +33,12 @@ const Rightbar = ({user}) => {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="infoKey">City:</span>
-            <span className="infoValue">{user.city}</span>
+            <span className="infoValue">{user?.city}</span>
           </div>
 
           <div className="rightbarInfoItem">
             <span className="infoKey">From:</span>
-            <span className="infoValue">{user.from}</span>
+            <span className="infoValue">{user?.from}</span>
           </div>
 
           <div className="rightbarInfoItem">
