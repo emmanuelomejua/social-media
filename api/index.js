@@ -11,11 +11,7 @@ const app = express();
 const { json, urlencoded } = express;
 
 //import routes
-const usersRoute = require('./routes/usersRoute');
-const authRoute = require('./routes/authRoute');
-const postRoute = require('./routes/postRoute')
-const chatRoute = require('./routes/chatRoute')
-const msgRoute = require('./routes/msgRoute')
+const { usersRoute, authRoute, postRoute, chatRoute, msgRoute } = require('./routes');
 
 
 //connect to DB
@@ -50,4 +46,3 @@ app.listen(port, err=> {
 })
 
 
-//dcentr-finance-landing repository

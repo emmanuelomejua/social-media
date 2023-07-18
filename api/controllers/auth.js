@@ -8,7 +8,7 @@ const encryptPassword = password => {
     return hashedPassword ;
 };
 
-//registration controller
+//registration 
 const Register = async (req, res) => {
    
         try {
@@ -44,13 +44,13 @@ const Login = async (req, res) => {
     
     try {
         if(!user){
-            res.status(400).json('user does not registered')
+            res.status(400).json('Invalid password or username')
         } else {
             const vPassword = await bcrypt.compare(req.body.password, user.password)
             if(!vPassword){
-                res.status(400).json('Incorrect password or username')
+                res.status(400).json('Invalid password or username')
             } else {
-                const {isAdmin, password, ...otherDetails} = user._doc
+                const { isAdmin, password, ...otherDetails } = user._doc
                 res.status(200).json({...otherDetails})
             }
         }
