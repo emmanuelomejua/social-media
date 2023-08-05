@@ -8,20 +8,20 @@ const encryptPassword = password => {
     return hashedPassword ;
 };
 
-//registration 
+//registration  endpoint
 const Register = async (req, res) => {
    
         try {
-            const {username, email, password } = req.body
-
             const userExist = await User.findOne({email: req.body.email});
+
             if(userExist){
                 res.status(400).json('User already exist')
+
             } else {
+
                 try {
                 const newUser = new User({
-                    username,
-                    email,
+                    ...req.body,
                     password: encryptPassword(password)
                         })
             
@@ -38,7 +38,7 @@ const Register = async (req, res) => {
 
 }
 
-//login
+//login endpoint
 const Login = async (req, res) => {
     const user = await User.findOne({email: req.body.email})
     
