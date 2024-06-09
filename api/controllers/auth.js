@@ -8,20 +8,20 @@ const encryptPassword = password => {
     return hashedPassword ;
 };
 
-//registration controller
+//registration  endpoint
 const Register = async (req, res) => {
    
         try {
-            const {username, email, password } = req.body
-
             const userExist = await User.findOne({email: req.body.email});
+
             if(userExist){
                 res.status(400).json('User already exist')
+
             } else {
+
                 try {
                 const newUser = new User({
-                    username,
-                    email,
+                    ...req.body,
                     password: encryptPassword(password)
                         })
             
@@ -38,19 +38,19 @@ const Register = async (req, res) => {
 
 }
 
-//login
+//login endpoint
 const Login = async (req, res) => {
     const user = await User.findOne({email: req.body.email})
     
     try {
         if(!user){
-            res.status(400).json('user does not registered')
+            res.status(400).json('Invalid password or username')
         } else {
             const vPassword = await bcrypt.compare(req.body.password, user.password)
             if(!vPassword){
-                res.status(400).json('Incorrect password or username')
+                res.status(400).json('Invalid password or username')
             } else {
-                const {isAdmin, password, ...otherDetails} = user._doc
+                const { isAdmin, password, ...otherDetails } = user._doc
                 res.status(200).json({...otherDetails})
             }
         }

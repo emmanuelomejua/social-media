@@ -22,7 +22,7 @@ const updateUser = async (req, res) => {
         }
 
     } else {
-        return res.status(403).json('You are not authorized this action')
+        return res.status(403).json('You are not authorized to perform this action')
     }
 } 
 

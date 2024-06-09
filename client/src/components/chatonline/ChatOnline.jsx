@@ -1,12 +1,12 @@
 import './chatonline.css'
-import img from '../../assets/pic3.jpg'
+import { img1 } from '../../constants/images'
 
 const ChatOnline = () => {
   return (
     <div className='chatonline'>
       <div className="chatonlineF">
         <div className="chatonlineImgC">
-            <img src={img} alt="" className="chatonlineImg" />
+            <img src={img1} alt="" className="chatonlineImg" />
             <div className="chatonlineB"></div>
         </div>
         <span className="chatonlineN">Udumizi Solomon</span>
@@ -16,3 +16,4 @@ const ChatOnline = () => {
 }
 
 export default ChatOnline
+

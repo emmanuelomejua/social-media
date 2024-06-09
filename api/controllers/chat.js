@@ -1,3 +1,5 @@
+'use strict';
+
 const Chat = require('../models/Chat');
 
 //user chat
@@ -5,6 +7,8 @@ const newChat = async (req, res) => {
     const chat = new Chat({
         members: [req.body.senderId, req.body.receiverId]
     })
+
+    // let { senderId, ...other } = chat
 
     try {
         const savedChat = await chat.save()
@@ -14,11 +18,11 @@ const newChat = async (req, res) => {
     }
 }
 
-//get cuser chat
+//get user chat
 const getUserChat = async (req, res) => {
     try {
         const chat = await Chat.find({
-            members: { $in: [req.URLSearchParams.userId] }
+            members: { $in: [req.params.userId] }
         });
         res.status(200).json(chat)
     } catch (err) {

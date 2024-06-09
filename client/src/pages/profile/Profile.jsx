@@ -1,7 +1,4 @@
-import Feed from '../../components/feed/Feed'
-import Rightbar from '../../components/rightbar/Rightbar'
-import Sidebar from '../../components/sidebar/Sidebar'
-import Topbar from '../../components/topbar/Topbar'
+import {Topbar, Sidebar, Feed, Rightbar} from '../../components/index'
 import img1 from '../../assets/pic1.jpg'
 import img2 from '../../assets/thum4.jpg'
 import './profile.css'

@@ -1,10 +1,10 @@
 import './chat.css'
-import img from '../../assets/pic3.jpg'
+import {img1} from '../../constants/images'
 
-const Chat = () => {
+const Chat = ({chat}) => {
   return (
     <div className='chat'>
-      <img src={img} alt="" className="chatImg" />
+      <img src={img1} alt="" className="chatImg" />
       <span className="chatName">Udumizi Solomon</span>
     </div>
   )

@@ -1,8 +1,6 @@
-import Topbar from '../../components/topbar/Topbar'
-import Sidebar from '../../components/sidebar/Sidebar'
+import {Topbar, Sidebar, Feed, Rightbar} from '../../components/index'
 import './home.css'
-import Feed from '../../components/feed/Feed'
-import Rightbar from '../../components/rightbar/Rightbar'
+
 
 const Home = () => {
   return (

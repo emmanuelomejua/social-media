@@ -11,11 +11,7 @@ const app = express();
 const { json, urlencoded } = express;
 
 //import routes
-const usersRoute = require('./routes/usersRoute');
-const authRoute = require('./routes/authRoute');
-const postRoute = require('./routes/postRoute')
-const chatRoute = require('./routes/chatRoute')
-const msgRoute = require('./routes/msgRoute')
+const { usersRoute, authRoute, postRoute, chatRoute, msgRoute } = require('./routes');
 
 
 //connect to DB
@@ -39,7 +35,7 @@ app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
 app.use('/api/chat', chatRoute)
-app.use('api/msg', msgRoute)
+app.use('/api/msg', msgRoute)
 
 
 //bind with express server
@@ -48,3 +44,5 @@ const port = process.env.PORT
 app.listen(port, err=> {
     !err ? log(`Server active at port ${port}`) : error(err.message)
 })
+
+
