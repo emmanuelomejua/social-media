@@ -22,7 +22,7 @@ const Register = async (req, res) => {
                 try {
                 const newUser = new User({
                     ...req.body,
-                    password: encryptPassword(password)
+                    // password: encryptPassword(password)
                         })
             
                  const  user =  await newUser.save()
