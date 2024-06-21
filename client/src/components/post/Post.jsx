@@ -2,9 +2,8 @@ import { MoreVert } from '@mui/icons-material'
 import './post.css'
 import {heart, like1, img} from '../../constants/images'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { apiRoute } from '../../utils/API'
-import {format} from 'timeago.js'
+import SERVER from '../../utils/API'
+
 import { Link } from 'react-router-dom'
 
 const Post = ({post}) => {
@@ -20,7 +19,7 @@ const Post = ({post}) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get(apiRoute + `users?userId=${post.userId}`)
+                const res = await SERVER.get(`users?userId=${post.userId}`)
                 setUser(res.data)
             } catch (error) {
                 console.log(error)
@@ -42,7 +41,7 @@ const Post = ({post}) => {
                     <img src={user.profilePics  || img} alt="" className="PPImg" />
                     </Link>
                     <span className="PUname">{user?.username}</span>
-                    <span className="pDate">{format(post.createdAt)}</span>
+                    <span className="pDate">{(post.createdAt)}</span>
                 </div>
                 <div className="topRight">
                     <MoreVert/>

@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom'
 import './login.css'
 import { useContext, useRef } from 'react'
-import { apiRoute } from '../../utils/API'
-import { AuthContext } from '../../context/authContext'
+import SERVER from '../../utils/API'
+import { AuthContext } from '../../services/authContext'
 import { CircularProgress } from '@mui/material'
-import axios from 'axios'
+
 
 const Login = () => {
 
   const email = useRef()
   const password = useRef()
 
-  const {user, loading, dispatch} = useContext(AuthContext)
+  const { loading, dispatch} = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
       e.preventDefault()
       dispatch({type: 'LOGIN_START'})
 
       try {
-        const res = await axios.post(apiRoute + 'auth/login', {
+        const res = await SERVER.post( 'auth/login', {
           email: email.current.value,
           password: password.current.value
         })

@@ -1,6 +1,5 @@
 import './message.css'
 import img from '../../assets/pic3.jpg'
-import { format } from 'timeago.js'
 
 const Message = ({own}) => {
   return (

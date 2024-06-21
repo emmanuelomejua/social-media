@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './register.css'
 import { useState } from 'react'
-import axios from 'axios'
-import { apiRoute } from '../../utils/API'
+import SERVER from '../../utils/API'
 
 const Register = () => {
 
@@ -23,7 +22,7 @@ const Register = () => {
     e.preventDefault()
     const {username, email, password} = user
     try {
-      const res = await axios.post(apiRoute + 'auth/register', {
+      const res = await SERVER.post('auth/register', {
         username,
         email,
         password

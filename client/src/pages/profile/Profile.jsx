@@ -3,8 +3,7 @@ import img1 from '../../assets/pic1.jpg'
 import img2 from '../../assets/thum4.jpg'
 import './profile.css'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { apiRoute } from '../../utils/API'
+import SERVER from '../../utils/API'
 import { useParams } from 'react-router-dom'
 
 const Profile = () => {
@@ -15,7 +14,7 @@ const Profile = () => {
   useEffect(()=> {
     const getUser = async () => {
       try {
-        const res = await axios.get(apiRoute + `users?username=${username}`)
+        const res = await SERVER.get(`users?username=${username}`)
         setUser(res.data)
       } catch (err) {
         

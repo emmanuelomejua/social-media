@@ -2,7 +2,7 @@ import './app.css'
 import { Home, Login, Profile, Register, Messenger} from './pages/index'
 import { Routes, Route} from 'react-router-dom'
 import { useContext } from 'react';
-import { AuthContext } from './context/authContext';
+import { AuthContext } from './services/authContext';
 
 
 function App() {

@@ -1,9 +1,8 @@
 import './messenger.css'
 import {Topbar, Chat, Message, ChatOnline} from '../../components/index'
-import {useContext, useEffect, useState} from 'react'
-import {AuthContext} from '../../services/authContext'
-import axios from 'axios'
-import { apiRoute } from '../../utils/API'
+import { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../../services/authContext'
+import SERVER from '../../utils/API'
 
 const Messeger = () => {
   const {user} = useContext(AuthContext)
@@ -13,7 +12,7 @@ const Messeger = () => {
   useEffect(()=> {
       const getChats = async () => {
         try {
-          const res = await axios.get(apiRoute + `chat/${user._id}`)
+          const res = await SERVER.get(`chat/${user._id}`)
           setChats(res.data)
         } catch (error) {
           console.error(error)
