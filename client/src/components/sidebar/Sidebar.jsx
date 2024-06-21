@@ -4,7 +4,7 @@ import './sidebar.css'
 import Friend from '../friends/Friend'
 import { Users } from '../../data'
 import { useContext } from 'react'
-import { AuthContext } from '../../context/authContext'
+import { AuthContext } from '../../services/authContext'
 // import { Logout } from '../../context/authActions'
 
 const Sidebar = () => {

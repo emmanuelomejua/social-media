@@ -1,7 +1,7 @@
 import './messenger.css'
 import {Topbar, Chat, Message, ChatOnline} from '../../components/index'
 import {useContext, useEffect, useState} from 'react'
-import {AuthContext} from '../../context/authContext'
+import {AuthContext} from '../../services/authContext'
 import axios from 'axios'
 import { apiRoute } from '../../utils/API'
 

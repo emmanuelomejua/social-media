@@ -3,7 +3,7 @@ import { Person, Search, Chat, Notifications } from '@mui/icons-material'
 import img from '../../assets/pic1.jpg'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
-import { AuthContext } from '../../context/authContext'
+import { AuthContext } from '../../services/authContext'
 
 const Topbar = () => {
 
