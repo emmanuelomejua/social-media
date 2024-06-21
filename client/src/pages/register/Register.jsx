@@ -33,7 +33,7 @@ const Register = () => {
       console.log(error)
     }
   }
-  console.log(user)
+  // console.log(user)
 
   return (
     <div className='login'>
@@ -89,7 +89,7 @@ const Register = () => {
               <button className='loginBtn' type='submit'>Sign Up</button>
               <span className="loginText">Already Registered?</span>
               <Link to='/login' className='link'>
-              <button className='rBtn'>Login</button>
+                <button className='rBtn'>Login</button>
               </Link>
              
           </form>

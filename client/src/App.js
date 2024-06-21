@@ -7,7 +7,9 @@ import { AuthContext } from './services/authContext';
 
 function App() {
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
+  // const user = true;
+
   return (
     <main className="app">
     <Routes>
