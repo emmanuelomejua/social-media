@@ -1,47 +1,45 @@
 import { MoreVert } from '@mui/icons-material'
 import './post.css'
-import {heart, like1, img} from '../../constants/images'
+import { heart, like1 } from '../../constants/images'
 import { useEffect, useState } from 'react'
 import SERVER from '../../utils/API'
-
+import moment from 'moment';
 import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query';
+import avater from '../../assets/custom.avif';
+import custom from '../../assets/avater.jpeg';
 
 const Post = ({post}) => {
-    const [like, setLike] = useState(post.likes)
-    const [isLiked, setIsLiked] = useState(false)
-    const [user, setUser] = useState({})
+
+    const [like, setLike] = useState(post?.likes?.length);
+    const [isLiked, setIsLiked] = useState(false);
 
     const handleLike = () => {
-        setLike(prev=>isLiked ? like - 1 : like + 1)
+        setLike(isLiked ? like - 1 : like + 1)
         setIsLiked(!isLiked)
     }
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await SERVER.get(`users?userId=${post.userId}`)
-                setUser(res.data)
-            } catch (error) {
-                console.log(error)
-            }
+    const { data } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+          const res = await SERVER.get(`users?userId=${post?.userId}`);
+          return res.data;
         }
-    fetchUser()
-    }, [post.userId])
+    })
 
-
-    // const user = Users.filter((u)=> u.id === 1)
-    // console.log(user[0].username)
 
   return (
     <section className='post'>
         <div className="postWrap">
             <div className="postTop">
                 <div className="topLeft">
-                    <Link to={`/profile/${user.username}`}>
-                    <img src={user.profilePics  || img} alt="" className="PPImg" />
+                    <Link to={`/profile/${data?.data?.username}`}>
+                        <img src={data?.data?.profilePics  || custom} alt="" className="PPImg" />
                     </Link>
-                    <span className="PUname">{user?.username}</span>
-                    <span className="pDate">{(post.createdAt)}</span>
+                    <span className="PUname">{data?.data?.username}</span>
+                    <span className="pDate">
+                        {moment(post.createdAt).fromNow()}
+                    </span>
                 </div>
                 <div className="topRight">
                     <MoreVert/>
@@ -50,7 +48,7 @@ const Post = ({post}) => {
 
             <div className="postCenter">
                 <span className="postText">{post?.desc}</span>
-                <img src={post.img} alt="" className="pImg" />
+                <img src={post.img ? post.img : avater} alt="" className="pImg" />
             </div>
             <div className="postBottom">
                 <div className="PBleft">
@@ -59,7 +57,7 @@ const Post = ({post}) => {
                    <span className="likeCounter">{like} </span>
                 </div>
                 <div className="PBright">
-                    <span className='pComment'>{post.comment} comments</span>
+                    <span className='pComment'>{post?.comment} comments</span>
                 </div>
             </div>
         </div>
@@ -68,4 +66,4 @@ const Post = ({post}) => {
   )
 }
 
-export default Post
+export default Post;

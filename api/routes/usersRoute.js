@@ -5,7 +5,7 @@ const { updateUser, deleteUser, getUser, followUser, unFollow } = require('../co
 
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser)
-router.get('/:id',  getUser)
+router.get('/',  getUser)
 router.put('/:id/follow', followUser);
 router.put('/:id/unfollow', unFollow);
 

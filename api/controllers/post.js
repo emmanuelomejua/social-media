@@ -3,11 +3,11 @@ const User = require('../models/Users')
 
 //create a post
 const createPost = async (req, res) => {
-    const newPost = new Post(req.body)
+    const newPost = await Post.create(req.body)
 
     try {
         const savedPost = await newPost.save()
-        return res.status(201).json(savedPost)
+        res.status(201).json(savedPost)
     } catch (err) {
         res.status(500).json(err.message)
     }
@@ -17,12 +17,14 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
 
     try {
-        const post = await Post.findById(req.params.id)
+        const post = await Post.findById(req.params.id);
+        if(!post) return res.status(404).json({msg: 'Post not found or does not exist'});
+
         if(post.userId === req.body.userId){
             await post.updateOne({$set: req.body})
-            res.status(200).json('post has been updated')
+            return res.status(200).json('post has been updated')
         } else {
-            return res.status(403).send({msg: 'Not allowed'})
+            return  res.status(403).send({msg: 'Not allowed'})
         }
     } catch (err) {
         res.status(500).json(err.message)
@@ -33,7 +35,9 @@ const updatePost = async (req, res) => {
 //delete a post
 const deletePost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id)
+        const post = await Post.findById(req.params.id);
+        if(!post) return res.status(404).json({msg: 'Post not found or already deleted'});
+
         if(post.userId === req.body.userId){
             await post.deleteOne()
             res.status(200).json('post has been deleted')
@@ -64,7 +68,10 @@ const likePost = async (req, res) => {
 //get a post
 const getPost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id)
+        const post = await Post.findById(req.params.id);
+
+        if(!post) return res.status(404).json({msg: 'Post not found or does not exist'});
+
         res.status(200).json(post)
     } catch (err) {
         res.status(500).json(err.message)
@@ -93,8 +100,10 @@ const getTimelinePost = async (req, res) => {
 const getUserPost = async (req, res) => {
 
     try {
-        const user = await Post.find({username: req.params.username})
-        const post = await Post.find({userId: user._id})
+        const user = await User.find({username: req.params.username})
+        const post = await Post.find({userId: user._id});
+
+        if(!post) return res.status(404).json({msg: 'Post not found or already deleted'});
 
         res.status(200).json(post)
     } catch (err) {getUserPost
