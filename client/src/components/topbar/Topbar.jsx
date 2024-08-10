@@ -7,11 +7,13 @@ import { AuthContext } from '../../services/authContext'
 
 const Topbar = () => {
 
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
+
+    const user = true;
   return (
     <nav className='topbar'>
         <section className='topbarLeft'>
-            <span className='logo'>E-Social</span>
+            <span className='logo'>Fecebook</span>
         </section>
 
         <section className='topbarCenter'>
@@ -48,8 +50,8 @@ const Topbar = () => {
                 </div>
             </div>
 
-                <Link to={`/profile/:${user.username}`} className='link'>
-                <img src={user.profilePic || img} alt='' className='topbarImg'/>
+                <Link to={`/profile/:${user?.username}`} className='link'>
+                <img src={user?.profilePic || img} alt='' className='topbarImg'/>
                 </Link>
            
         </section>

@@ -5,14 +5,16 @@ import { AuthContext } from '../../services/authContext'
 import SERVER from '../../utils/API'
 
 const Messeger = () => {
-  const {user} = useContext(AuthContext)
+  // const {user} = useContext(AuthContext)
  
+  const user = true;
+  
   const [chats, setChats] = useState([])
 
   useEffect(()=> {
       const getChats = async () => {
         try {
-          const res = await SERVER.get(`chat/${user._id}`)
+          const res = await SERVER.get(`chat/${user?._id}`)
           setChats(res.data)
         } catch (error) {
           console.error(error)
@@ -29,7 +31,7 @@ const Messeger = () => {
        <section className="chatmenu">
         <div className="menuWrap">
             <input type="text" className="menuInput" placeholder='Search Friends...'/>
-            { chats.map((chat) => (
+            { chats?.map((chat) => (
                   <Chat chat={chat} key={chat._id}/>
             ))}
 

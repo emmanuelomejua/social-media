@@ -43,18 +43,20 @@
 
 .chatMsgInput{
     width: 80%;
-    height: 90px;
+    max-height: 20px;
     padding: 10px;
+    outline: none;
+    border-color: gray;
 }
 
 .chatBtn{
     width: 70px;
-    height: 35px;
+    height: 40px;
     border: none;
-    border-radius: 5px;
     color: white;
-    background-color: teal;
+    background-color: rgb(83, 98, 98);
     cursor: pointer;
+    padding: 10px;
 }
 .chatOnline{
     flex: 3;

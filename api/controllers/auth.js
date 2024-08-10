@@ -2,62 +2,51 @@ const User = require('../models/Users');
 const bcrypt = require('bcrypt')
 
 
-//Encrypt password
-const encryptPassword = password => {
-    const hashedPassword =  bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    return hashedPassword ;
-};
-
 //registration  endpoint
 const Register = async (req, res) => {
-   
-        try {
-            const userExist = await User.findOne({email: req.body.email});
 
-            if(userExist){
-                res.status(400).json('User already exist')
+    const userExist = await User.findOne({email: req.body.email});
 
-            } else {
+    if(userExist) return res.status(400).json({msg: 'User already exist'});
 
-                try {
-                const newUser = new User({
-                    ...req.body,
-                    // password: encryptPassword(password)
-                        })
-            
-                 const  user =  await newUser.save()
-                 res.status(201).json(user)
-                } catch (err) {
-                    res.status(500).json(err.message)
-                }
-            }
-          
-        } catch (err) {
-            res.status(500).json(err.message)
-        }
+    try {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hashSync(req.body.password, salt);
 
+    const newUser = new User({
+        ...req.body,
+        password: hash
+            })
+
+        const  user =  await newUser.save();
+        const { password, ...others } = user._doc;
+        res.status(201).json({others});
+
+    } catch (err) {
+        res.status(500).json(err.message)
+    }
 }
 
 //login endpoint
 const Login = async (req, res) => {
-    const user = await User.findOne({email: req.body.email})
     
     try {
-        if(!user){
-            res.status(400).json('Invalid password or username')
-        } else {
-            const vPassword = await bcrypt.compare(req.body.password, user.password)
-            if(!vPassword){
-                res.status(400).json('Invalid password or username')
-            } else {
-                const { isAdmin, password, ...otherDetails } = user._doc
-                res.status(200).json({...otherDetails})
-            }
-        }
+        const user = await User.findOne({email: req.body.email})
+        
+        if(!user) return res.status(404).json('User not found or does not exist');
 
-    } catch (err) { 
+        const vPassword = await bcrypt.compare(req.body.password, user.password);
+
+        if(!vPassword) return  res.status(400).json('Invalid password or username');
+
+        const { password, ...otherDetails } = user._doc;
+
+        res.status(200).json({otherDetails});
+        
+    } catch (error) {
         res.status(500).json(err.message)
     }
+
 }
 
 module.exports = { Register, Login }
