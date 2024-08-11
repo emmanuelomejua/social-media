@@ -4,7 +4,9 @@ import {Online} from '../../components/index'
 import {Users} from '../../data'
 
 const Rightbar = ({user}) => {
+
   const HomeRightbar = () => {
+
     return(
       <>
           <div className="birthdayCont">
@@ -24,24 +26,26 @@ const Rightbar = ({user}) => {
       </>
     )
   }
+
   const ProfileRightbar = () => {
+
     return(
       <>
          <h2 className='rbTitle'>User Infomation</h2>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="infoKey">City:</span>
-            <span className="infoValue">{user?.city}</span>
+            <span className="infoValue">{user?.data?.city}</span>
           </div>
 
           <div className="rightbarInfoItem">
             <span className="infoKey">From:</span>
-            <span className="infoValue">{user?.from}</span>
+            <span className="infoValue">{user?.data?.from}</span>
           </div>
 
           <div className="rightbarInfoItem">
             <span className="infoKey">Relationship:</span>
-            <span className="infoValue">{user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : ''}</span>
+            <span className="infoValue">{user.data?.relationship === 1 ? 'Single' : user.data?.relationship === 2 ? 'Married' : ''}</span>
           </div>
         </div>
 
@@ -86,7 +90,7 @@ const Rightbar = ({user}) => {
   return (
     <div className='rightbar'>
         <div className="rightbarWrap">
-          {user ? <ProfileRightbar/> : <HomeRightbar/>}
+          {user?.data ? <ProfileRightbar/> : <HomeRightbar/>}
         </div>
     </div>
   )

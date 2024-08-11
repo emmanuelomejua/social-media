@@ -1,11 +1,9 @@
 import {Topbar, Sidebar, Feed, Rightbar} from '../../components/index'
-import img1 from '../../assets/pic1.jpg'
-import img2 from '../../assets/thum4.jpg'
-import './profile.css'
-// import { useEffect, useState } from 'react'
+import './profile.css';
 import SERVER from '../../utils/API'
 import { useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+import avater from '../../assets/avater.jpeg'
 
 const Profile = () => {
 
@@ -28,14 +26,14 @@ const Profile = () => {
         <section className='profileRight'>
             <div className="profileRightTop">
                 <div className="profileCover">
-                    <img src={user?.coverPic || img2} alt="" className="coverImg" />
+                    <img src={user?.data?.coverPic || avater} alt="" className="coverImg" />
 
-                    <img src={user?.profilePic || img1} alt="" className="userImg" />
+                    <img src={user?.data?.profilePic || avater} alt="" className="userImg" />
                 </div>
                 
                 <div className="profileInfo">
-                    <h4 className="name">{user?.username}</h4>
-                    <span className="desc">{user?.desc}</span>
+                    <h4 className="name">{user?.data?.username}</h4>
+                    <span className="desc">{user?.data?.desc}</span>
                 </div>
             </div>
             <div className="profileRightBottom">

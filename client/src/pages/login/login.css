@@ -50,6 +50,15 @@
     border: 1px solid gray;
 }
 
+.loginErr{
+    border: 1px solid crimson;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    padding-left: 15px;
+    outline: none;
+}
+
 .loginBtn{
     height: 50px;
     border-radius: 10px;
@@ -61,7 +70,7 @@
     cursor: pointer;
 }
 
-.loginBtn:disabled{
+.rBtn:disabled{
     cursor: not-allowed;
 }
 

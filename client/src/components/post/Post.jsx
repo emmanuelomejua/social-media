@@ -1,7 +1,7 @@
 import { MoreVert } from '@mui/icons-material'
 import './post.css'
 import { heart, like1 } from '../../constants/images'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import SERVER from '../../utils/API'
 import moment from 'moment';
 import { Link } from 'react-router-dom'

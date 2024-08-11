@@ -4,6 +4,8 @@ import { useContext, useRef } from 'react'
 import SERVER from '../../utils/API'
 import { AuthContext } from '../../services/authContext'
 import { CircularProgress } from '@mui/material'
+import { toastOptions } from '../../utils/toastOptions';
+import { toast } from 'react-toastify'
 
 
 const Login = () => {
@@ -11,7 +13,7 @@ const Login = () => {
   const email = useRef()
   const password = useRef()
 
-  const { loading, dispatch} = useContext(AuthContext)
+  const { loading, dispatch, error} = useContext(AuthContext)
 
   const handleSubmit = async (e) => {
       e.preventDefault()
@@ -23,9 +25,11 @@ const Login = () => {
           password: password.current.value
         })
 
-        dispatch({type: 'LOGIN_SUCCESS', payload: res.data})
+        dispatch({type: 'LOGIN_SUCCESS', payload: res.data});
+        toast.success('Login successfully!', { toastOptions })
       } catch (error) {
-        dispatch({type: 'LOGIN_FAIL'})
+        dispatch({type: 'LOGIN_FAIL'});
+        toast.error('Login Failed!, Please enter valid credentials', { toastOptions })
       }
   }
 
@@ -35,8 +39,8 @@ const Login = () => {
     <div className='login'>
       <div className="loginWrap">
         <div className="loginLeft">
-            <h3 className="loginLogo">Tompolo Social</h3>
-            <span className="loginDesc">Connect with friends and the world around you with Tompolo</span>
+            <h3 className="loginLogo">Fecebook</h3>
+            <span className="loginDesc">Connect with friends and the world around you with Fecebook</span>
         </div>
 
         <div className="loginRight">
@@ -50,16 +54,18 @@ const Login = () => {
                  
                 />
 
-                <input type="password" ref={password} className="loginInput" placeholder='Password' required minLength={4}/>
+                <input type="password" ref={password} className={error ? 'loginErr': 'loginInput'} placeholder='Password' required minLength={4}/>
 
-                <button className='loginBtn' type='submit' disabled={loading}>
-                  { loading ? <CircularProgress style={{color: 'white', height: '10px'}}/>: "Login"}
+                <button className='loginBtn' type='submit'>
+                  { loading ? <CircularProgress variant='contained' sx={{ height: '15px', color:'white', margin: 'auto', display: 'flex'}}/>: "Login"}
                 </button>
+
+              {error &&  <span className="">Please enter a valid username and passord</span>}
                 
                 <span className="loginText">Forget Password?</span>
                 <Link to='/register'>
-                  <button className='rBtn'>
-                  { loading ? <CircularProgress style={{color: 'white', height: '10px'}}/>: "Create An Account"}
+                  <button className='rBtn' disabled={loading}>
+                  Create An Account
                     </button>
                 </Link>
                

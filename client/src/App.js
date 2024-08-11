@@ -3,20 +3,20 @@ import { Home, Login, Profile, Register, Messenger} from './pages/index'
 import { Routes, Route} from 'react-router-dom'
 import { useContext } from 'react';
 import { AuthContext } from './services/authContext';
-import { QueryClient, QueryClientProvider, } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider, } from '@tanstack/react-query';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient()
 
 function App() {
 
-  // const { user } = useContext(AuthContext)
-  const user = true;
+  const { user } = useContext(AuthContext)
 
   return ( 
     <QueryClientProvider client={queryClient}>
       <main className="app">
       <Routes>
-      
           <Route exact path='/' element={user ? <Home/> : <Login/>}/>
 
           <Route exact path='/profile/:username' element={user ? <Profile/> : <Login/>}/>
@@ -25,6 +25,7 @@ function App() {
           <Route exact path='/messenger' element={user ?<Messenger/> :  <Login/>}/>
         
       </Routes>
+      <ToastContainer/>
       </main>
     </QueryClientProvider>
   );

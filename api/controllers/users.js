@@ -42,7 +42,7 @@ const deleteUser = async (req, res) => {
 
 //get a user
 const getUser = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.query.userId;
     const username = req.query.username;
 
     try {
