@@ -36,6 +36,7 @@ const Share = () => {
         try {
             const res = await SERVER.post('post/create', newPost);
             console.log(res.data);
+            return res.data;
         } catch (error) {
             console.error(error)
         }

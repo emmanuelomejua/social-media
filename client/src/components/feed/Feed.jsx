@@ -9,14 +9,16 @@ import { AuthContext } from '../../services/authContext';
 
 const Feed = ({username}) => {
 
-  const { user } = useContext(AuthContext);
+  const  {user}  = useContext(AuthContext);
 
     const { isPending, error, data } = useQuery({
       queryKey: ['feeds'],
       queryFn: async () => {
         const res = username ? `post/profile?username=${username}` : 
         await SERVER.get(`post/timeline/${user?.otherDetails._id}`);
-        return res.data;
+        return res.data.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
       }
     })
 

@@ -11,9 +11,9 @@ const queryClient = new QueryClient()
 
 function App() {
 
-  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const user = true;
+  // const user = true;
 
   return ( 
     <QueryClientProvider client={queryClient}>

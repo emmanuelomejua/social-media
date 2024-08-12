@@ -10,6 +10,9 @@ import avater from '../../assets/custom.avif';
 import custom from '../../assets/avater.jpeg';
 import { AuthContext } from '../../services/authContext'
 
+const PF = process.env.REACT_APP_PUBLIC_FOLDER 
+
+
 const Post = ({post}) => {
 
     const [like, setLike] = useState(post?.likes?.length);
@@ -65,7 +68,7 @@ const Post = ({post}) => {
 
             <div className="postCenter">
                 <span className="postText">{post?.desc}</span>
-                <img src={post.img ? post.img : avater} alt="" className="pImg" />
+            <img src={post.img ? PF+post.img : avater} alt="" className="pImg" />
             </div>
             <div className="postBottom">
                 <div className="PBleft">
