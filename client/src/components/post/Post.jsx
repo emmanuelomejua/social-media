@@ -1,23 +1,40 @@
 import { MoreVert } from '@mui/icons-material'
 import './post.css'
 import { heart, like1 } from '../../constants/images'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import SERVER from '../../utils/API'
 import moment from 'moment';
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query';
 import avater from '../../assets/custom.avif';
 import custom from '../../assets/avater.jpeg';
+import { AuthContext } from '../../services/authContext'
 
 const Post = ({post}) => {
 
     const [like, setLike] = useState(post?.likes?.length);
     const [isLiked, setIsLiked] = useState(false);
+    const { user } = useContext(AuthContext);
 
-    const handleLike = () => {
-        setLike(isLiked ? like - 1 : like + 1)
-        setIsLiked(!isLiked)
+    useEffect(() => {
+        setIsLiked(post?.likes?.includes(user.otherDetails._id))
+    }, [user.otherDetails._id, post.likes])
+
+    const handleLike = async () => {
+        try {
+            const res = await SERVER.put(`post/${post._id}/like`, {
+                userId : user?.otherDetails._id
+            });
+            if(res.data){
+                setLike(isLiked ? like - 1 : like + 1)
+                setIsLiked(!isLiked);
+                return;
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
+
 
     const { data } = useQuery({
         queryKey: ['users'],

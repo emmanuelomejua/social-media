@@ -4,7 +4,9 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet')
-const {log, error} = require('console')
+const {log, error} = require('console');
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
 
@@ -15,8 +17,9 @@ const { usersRoute, authRoute, postRoute, chatRoute, msgRoute } = require('./rou
 
 
 //connect to DB
-const connectDB = require('./config/db')
+require('./config/db')
 
+app.use('/images', express.static(path.join(__dirname, 'public/images')))
 //middlewares
 app.use(json());
 app.use(helmet());
@@ -29,6 +32,28 @@ app.use(cors({
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-type', 'Authorization']
 }))
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.name);
+    }
+})
+
+const upload = multer({storage});
+
+
+app.post('/api/upload', upload.single('file'), async (req, res) => {
+    console.log(req.upload)
+    try {
+        return res.status(200).json('File uploaded successfully!')
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+})
+
 
 //routes uses
 app.use('/api/users', usersRoute);
@@ -46,4 +71,3 @@ app.listen(port, err=> {
 })
 
 
-// npx update-browserslist-db@latest

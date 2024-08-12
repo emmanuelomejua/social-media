@@ -2,17 +2,20 @@ import Post from '../post/Post'
 import Share from '../share/Share'
 import './feed.css';
 import { CircularProgress } from '@mui/material';
-// import { Posts } from '../../data';
 import { useQuery } from '@tanstack/react-query';
 import SERVER from '../../utils/API'
+import { useContext } from 'react';
+import { AuthContext } from '../../services/authContext';
 
 const Feed = ({username}) => {
+
+  const { user } = useContext(AuthContext);
 
     const { isPending, error, data } = useQuery({
       queryKey: ['feeds'],
       queryFn: async () => {
         const res = username ? `post/profile?username=${username}` : 
-        await SERVER.get('post/timeline/66b732a709813d60373b76ce');
+        await SERVER.get(`post/timeline/${user?.otherDetails._id}`);
         return res.data;
       }
     })

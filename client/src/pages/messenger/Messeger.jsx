@@ -5,9 +5,7 @@ import { AuthContext } from '../../services/authContext'
 import SERVER from '../../utils/API'
 
 const Messeger = () => {
-  // const {user} = useContext(AuthContext)
- 
-  const user = true;
+  const {user} = useContext(AuthContext)
   
   const [chats, setChats] = useState([])
 

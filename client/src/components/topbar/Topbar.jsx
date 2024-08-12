@@ -1,15 +1,15 @@
 import './topbar.css'
 import { Person, Search, Chat, Notifications } from '@mui/icons-material'
-import img from '../../assets/pic1.jpg'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
-import { AuthContext } from '../../services/authContext'
+import { AuthContext } from '../../services/authContext';
+import avater from '../../assets/avater.jpeg'
 
 const Topbar = () => {
 
-    // const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
 
-    const user = true;
+    // const user = true;
   return (
     <nav className='topbar'>
         <section className='topbarLeft'>
@@ -50,8 +50,8 @@ const Topbar = () => {
                 </div>
             </div>
 
-                <Link to={`/profile/:${user?.username}`} className='link'>
-                <img src={user?.profilePic || img} alt='' className='topbarImg'/>
+                <Link to={`/profile/${user?.otherDetails.username}`} className='link'>
+                    <img src={user?.otherDetails.profilePic || avater} alt='' className='topbarImg'/>
                 </Link>
            
         </section>
