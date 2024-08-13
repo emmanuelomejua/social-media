@@ -1,11 +1,26 @@
-import './chat.css'
-import {img1} from '../../constants/images'
+import './chat.css';
+import { useQuery } from '@tanstack/react-query';
+import SERVER from '../../utils/API';
+import avater from '../../assets/avater.jpeg'
 
-const Chat = ({chat}) => {
+
+const Chat = ({chat, currentUser}) => {
+
+  const { data } = useQuery({
+    queryKey: ['chat'], 
+    queryFn: async () => {
+      const friendId = chat.members.find((m) => m !== currentUser?.otherDetails._id);
+
+      const res = await SERVER.get(`users?userId=${friendId}`);
+      return res.data
+    }
+  })
+
+
   return (
     <div className='chat'>
-      <img src={img1} alt="" className="chatImg" />
-      <span className="chatName">Udumizi Solomon</span>
+      <img src={data?.data.profilePic || avater} alt="" className="chatImg" />
+      <span className="chatName">{data?.data.username}</span>
     </div>
   )
 }

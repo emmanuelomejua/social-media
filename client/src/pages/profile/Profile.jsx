@@ -7,6 +7,8 @@ import avater from '../../assets/avater.jpeg'
 
 const Profile = () => {
 
+  //coming back to thiseed 
+  /****N  to test the endpointds */
   const username = useParams().username
 
   const { data: user } = useQuery({
@@ -16,6 +18,7 @@ const Profile = () => {
       return res.data;
     }
   })
+
 
 
   return (

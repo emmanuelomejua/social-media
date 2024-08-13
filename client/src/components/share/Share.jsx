@@ -3,7 +3,9 @@ import { PermMedia, Label, Room, EmojiEmotions } from '@mui/icons-material'
 import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../services/authContext';
 import avater from '../../assets/avater.jpeg'
-import SERVER from '../../utils/API';
+import SERVER from '../../utils/API'; 
+import { toast } from 'react-toastify';
+import { toastOptions } from '../../utils/toastOptions';
 
 
 const Share = () => {
@@ -35,8 +37,12 @@ const Share = () => {
 
         try {
             const res = await SERVER.post('post/create', newPost);
-            console.log(res.data);
-            return res.data;
+            if(res.data) {
+                toast.success('Post created successfully!', { toastOptions });
+                window.location.reload();
+                return res.data;
+            }
+                
         } catch (error) {
             console.error(error)
         }

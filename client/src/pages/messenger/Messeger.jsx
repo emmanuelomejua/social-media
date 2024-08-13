@@ -1,26 +1,22 @@
 import './messenger.css'
 import {Topbar, Chat, Message, ChatOnline} from '../../components/index'
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { AuthContext } from '../../services/authContext'
-import SERVER from '../../utils/API'
+import SERVER from '../../utils/API';
+import { useQuery } from '@tanstack/react-query';
 
 const Messeger = () => {
+
   const {user} = useContext(AuthContext)
   
-  const [chats, setChats] = useState([])
+  const {data: chats} = useQuery({
+    queryKey: ['chats'],
+    queryFn: async () => {
+      const res = await SERVER.get(`chat/${user?.otherDetails._id}`);
+      return res.data;
+    }
+  })
 
-  useEffect(()=> {
-      const getChats = async () => {
-        try {
-          const res = await SERVER.get(`chat/${user?._id}`)
-          setChats(res.data)
-        } catch (error) {
-          console.error(error)
-        }
-      
-      }
-      getChats()
-  }, [user._id])
 
   return (
     <>
@@ -30,7 +26,7 @@ const Messeger = () => {
         <div className="menuWrap">
             <input type="text" className="menuInput" placeholder='Search Friends...'/>
             { chats?.map((chat) => (
-                  <Chat chat={chat} key={chat._id}/>
+                  <Chat chat={chat} currentUser={user} key={chat._id}/>
             ))}
 
         </div>
@@ -40,7 +36,7 @@ const Messeger = () => {
         <div className="boxWrap">
             <div className="boxTop">
                   <Message/>
-                  <Message />
+                  <Message own={true}/>
                   <Message />
                   <Message />
                   <Message />

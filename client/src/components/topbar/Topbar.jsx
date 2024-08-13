@@ -9,7 +9,6 @@ const Topbar = () => {
 
     const { user } = useContext(AuthContext);
 
-    // const user = true;
   return (
     <nav className='topbar'>
         <section className='topbarLeft'>

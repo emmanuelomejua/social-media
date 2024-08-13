@@ -105,4 +105,28 @@ const unFollow = async (req, res) => {
 }
 
 
-module.exports = { updateUser, deleteUser, getUser, followUser, unFollow }
+//get user friends
+const getFriends = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        const friends = await Promise.all(
+            user.followings.map(friendId => {
+                return User.findById(friendId);
+            })
+        );
+
+        // let friendList = [];
+
+        // friends.map((friend) => {
+        //     const { _id, username, profilePic } = friend;
+        //     friendList.push({ _id, username, profilePic });
+        // })
+        
+        res.status(200).json(friends);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
+
+module.exports = { updateUser, deleteUser, getUser, followUser, unFollow, getFriends };
