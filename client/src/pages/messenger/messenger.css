@@ -20,6 +20,7 @@
 
 .chatBox{
     flex: 5.5;
+    position: relative;
 }
 
 .boxWrap{
@@ -64,4 +65,13 @@
 
 .menuWrap, .boxWrap, .onlineWrap{
     padding: 10px;
+}
+
+.nochat{
+    position: absolute;
+    top: 10%;
+    font-size: 35px;
+    color: lightgray;
+    font-weight: 500;
+    cursor: default;
 }
