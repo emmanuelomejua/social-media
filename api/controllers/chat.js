@@ -8,8 +8,6 @@ const newChat = async (req, res) => {
         members: [req.body.senderId, req.body.receiverId]
     })
 
-    // let { senderId, ...other } = chat
-
     try {
         const savedChat = await chat.save()
         res.status(200).json(savedChat)

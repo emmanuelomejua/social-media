@@ -1,9 +1,21 @@
 import './rightbar.css'
 import { birthday, img1, ads} from '../../constants/images'
 import {Online} from '../../components/index'
-import {Users} from '../../data'
+import {Users} from '../../data';
+import { useQuery } from '@tanstack/react-query';
+import SERVER from '../../utils/API';
+import { Link } from 'react-router-dom';
 
 const Rightbar = ({user}) => {
+
+  const { data: friends, error } = useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
+      const res = await SERVER.get(`users/friends/${user?.data._id}`);
+      return res.data;
+    }
+  })
+
 
   const HomeRightbar = () => {
 
@@ -51,36 +63,18 @@ const Rightbar = ({user}) => {
 
         <h2 className='rbTitle'>Friend's List</h2>
 
-        <div className="rbFollowings">
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
+          <div className="rbFollowings">
+         {  error ? <div className="">Something went wrong</div>:
+          friends?.map((friend) => (
+            <div className="rbFollowing" key={friend?._id}>
+            <Link to={`profile/${friend?.username}`}>
+              <img src={friend?.profilePic || img1} alt="" className="rbFImg" />
+            </Link>
+              <span className="rbName">{friend?.username}</span>
+            </div>
+          ))
+          }
           </div>
-
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
-          </div>
-
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
-          </div>
-
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
-          </div>
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
-          </div>
-
-          <div className="rbFollowing">
-            <img src={img1} alt="" className="rbFImg" />
-            <span className="rbName">Chisom Oniel</span>
-          </div>
-        </div>
   
       </>
      

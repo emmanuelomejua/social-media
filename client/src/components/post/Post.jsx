@@ -54,7 +54,7 @@ const Post = ({post}) => {
             <div className="postTop">
                 <div className="topLeft">
                     <Link to={`/profile/${data?.data?.username}`}>
-                        <img src={data?.data?.profilePics  || custom} alt="" className="PPImg" />
+                        <img src={data?.data?.profilePic  || custom} alt="" className="PPImg" />
                     </Link>
                     <span className="PUname">{data?.data?.username}</span>
                     <span className="pDate">
@@ -68,7 +68,7 @@ const Post = ({post}) => {
 
             <div className="postCenter">
                 <span className="postText">{post?.desc}</span>
-            <img src={post.img ? PF+post.img : avater} alt="" className="pImg" />
+            <img src={post.img ? `${PF+post.img}`: avater} alt="" className="pImg" />
             </div>
             <div className="postBottom">
                 <div className="PBleft">
