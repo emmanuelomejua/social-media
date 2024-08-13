@@ -8,6 +8,7 @@ const {log, error} = require('console');
 const multer = require('multer');
 const path = require('path');
 
+//bind with express server
 const app = express();
 
 const { json, urlencoded } = express;
@@ -64,7 +65,6 @@ app.use('/api/chat', chatRoute)
 app.use('/api/msg', msgRoute)
 
 
-//bind with express server
 const port = process.env.PORT
 
 app.listen(port, err=> {

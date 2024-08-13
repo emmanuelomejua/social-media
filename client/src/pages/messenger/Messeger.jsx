@@ -1,10 +1,11 @@
 import './messenger.css'
 import {Topbar, Chat, Message, ChatOnline} from '../../components/index'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AuthContext } from '../../services/authContext'
 import SERVER from '../../utils/API';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { io } from 'socket.io-client';
+
 
 const Messeger = () => {
 
@@ -12,8 +13,29 @@ const Messeger = () => {
 
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-
   const [newMsg, setNewMsg] = useState('');
+  
+  const scrollRef = useRef();
+  const socket = useRef();
+
+
+  useEffect(() => {
+    socket.current = io('ws://localhost:8900')
+  })
+
+  useEffect(() => {
+    socket?.current.emit('addUser', user._id);
+    socket?.current.on('getUsers', (users) => {
+      console.log(users);
+    })
+  }, [user._id])
+
+
+
+  useEffect(() => {
+    scrollRef?.current?.scrollIntoView({behavior: 'smooth'})
+  }, [messages])
+  
   
   const {data: chats} = useQuery({
     queryKey: ['chats'],
@@ -46,8 +68,8 @@ const Messeger = () => {
 
     try {
       const res = await SERVER.post('msg', message);
+      setMessages([...messages, res.data]) ;
       setNewMsg('');
-      return res.data;
     } catch (error) {
       console.error(error);
     }
@@ -62,8 +84,8 @@ const Messeger = () => {
         <div className="menuWrap">
             <input type="text" className="menuInput" placeholder='Search Friends...'/>
             { chats?.map((chat) => (
-              <div onClick={() => setCurrentChat(chat)}>
-                <Chat chat={chat} currentUser={user} key={chat._id}/>
+              <div onClick={() => setCurrentChat(chat)} key={chat._id}>
+                <Chat chat={chat} currentUser={user}/>
               </div>
             ))}
 
@@ -76,7 +98,9 @@ const Messeger = () => {
             <div className="boxTop">
               { 
                 messages.map((m) => (
-                  <Message key={m._id} message={m} own={m.sender === user.otherDetails._id}/>
+                  <div ref={scrollRef}>
+                    <Message key={m._id} message={m} own={m.sender === user.otherDetails._id}/>
+                  </div>
                 ))
               }
             </div>
