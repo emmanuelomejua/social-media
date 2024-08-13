@@ -1,14 +1,15 @@
-import './message.css'
+import './message.css';
+import moment from 'moment';
 import img from '../../assets/pic3.jpg'
 
-const Message = ({own}) => {
+const Message = ({message, own}) => {
   return (
     <div className={own ? 'message own': 'message'}>
         <div className="msgTop">
             <img src={img} alt="" className="msgImg" />
-            <p className='msgText'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae temporibus ipsum voluptatibus maiores vel repudiandae, mollitia culpa corporis iure! Consequuntur, deserunt illum est voluptatum fuga qui provident omnis porro! Nam?.</p>
+            <p className='msgText'>{message?.text}</p>
         </div>
-        <div className="msgBottom">{new Date().toDateString()}</div>
+        <div className="msgBottom">{moment(message?.createdAt).fromNow()}</div>
      
     </div>
   )

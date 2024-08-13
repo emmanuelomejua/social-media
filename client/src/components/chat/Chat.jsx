@@ -1,20 +1,25 @@
 import './chat.css';
-import { useQuery } from '@tanstack/react-query';
 import SERVER from '../../utils/API';
 import avater from '../../assets/avater.jpeg'
+import { useEffect, useState } from 'react';
 
 
 const Chat = ({chat, currentUser}) => {
 
-  const { data } = useQuery({
-    queryKey: ['chat'], 
-    queryFn: async () => {
-      const friendId = chat.members.find((m) => m !== currentUser?.otherDetails._id);
+  const friendId = chat.members.find((m) => m !== currentUser?.otherDetails._id);
+  const [data, setData] = useState(null);
 
-      const res = await SERVER.get(`users?userId=${friendId}`);
-      return res.data
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await SERVER.get(`users?userId=${friendId}`);
+        setData(res.data);
+      } catch (error) {
+        console.error(error)
+      }
     }
-  })
+    getUser();
+  }, [friendId])
 
 
   return (
