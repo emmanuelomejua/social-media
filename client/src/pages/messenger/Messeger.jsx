@@ -14,21 +14,36 @@ const Messeger = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState('');
+  const [arrivedMsg, setArrivedMsg] = useState(null);
   
   const scrollRef = useRef();
   const socket = useRef();
 
 
   useEffect(() => {
-    socket.current = io('ws://localhost:8900')
+    socket.current = io('ws://localhost:8900');
+    socket.current.on('getMessage', data => {
+      setArrivedMsg({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now()
+      })
+    })
   })
 
+
   useEffect(() => {
-    socket?.current.emit('addUser', user._id);
+    arrivedMsg && currentChat?.members.includes(arrivedMsg?.sender) &&
+    setMessages((prev) => [...prev, arrivedMsg])
+  }, [currentChat?.members, arrivedMsg])
+
+
+  useEffect(() => {
+    socket?.current.emit('addUser', user.otherDetails._id);
     socket?.current.on('getUsers', (users) => {
       console.log(users);
     })
-  }, [user._id])
+  }, [user.otherDetails._id])
 
 
 
@@ -64,7 +79,15 @@ const Messeger = () => {
       sender: user?.otherDetails._id,
       text: newMsg,
       chatId: currentChat._id
-    }
+    };
+
+    const receiverId = currentChat?.members.find((memeber) => memeber !== user.otherDetails._id);
+
+    socket.current.emit('sendMessage', {
+      senderId: user?.otherDetails._id,
+      receiverId,
+      text: newMsg
+    })
 
     try {
       const res = await SERVER.post('msg', message);
@@ -98,19 +121,19 @@ const Messeger = () => {
             <div className="boxTop">
               { 
                 messages.map((m) => (
-                  <div ref={scrollRef}>
-                    <Message key={m._id} message={m} own={m.sender === user.otherDetails._id}/>
+                  <div ref={scrollRef} key={m._id}>
+                    <Message message={m} own={m.sender === user.otherDetails._id}/>
                   </div>
                 ))
               }
             </div>
             <div className="boxBottom">
               <textarea placeholder='Text...' 
-              className='chatMsgInput' 
-              onChange={(e) => setNewMsg(e.target.value)}
-              value={newMsg}
-              >
-              </textarea>
+                className='chatMsgInput' 
+                onChange={(e) => setNewMsg(e.target.value)}
+                value={newMsg}
+              />
+
               <button className="chatBtn" onClick={sendMessage}>Send</button>
             </div>
         </div>: 
