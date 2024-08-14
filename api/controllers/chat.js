@@ -30,4 +30,18 @@ const getUserChat = async (req, res) => {
 }
 
 
-module.exports = { newChat, getUserChat }
+//get chat for only two users
+const getChat = async (req, res) => {
+    try {
+        const chat = await Chat.findOne({
+            members: { $all: [req.params.firstId, req.params.secondId] }
+        });
+        res.status(200).json(chat);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+}
+
+
+
+module.exports = { newChat, getUserChat, getChat  }

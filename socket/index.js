@@ -14,8 +14,7 @@ const addUser = (userId, socketId) => {
 
 
 const removeUser = (socketId) => {
-    users.filter(user => user.id !== socketId);
-    return users;
+    users = users.filter(user => user.socketId !== socketId);
 }
 
 

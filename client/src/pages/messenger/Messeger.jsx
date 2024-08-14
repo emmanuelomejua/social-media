@@ -15,6 +15,7 @@ const Messeger = () => {
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState('');
   const [arrivedMsg, setArrivedMsg] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   
   const scrollRef = useRef();
   const socket = useRef();
@@ -29,21 +30,23 @@ const Messeger = () => {
         createdAt: Date.now()
       })
     })
-  })
+  }, [])
 
 
   useEffect(() => {
     arrivedMsg && currentChat?.members.includes(arrivedMsg?.sender) &&
     setMessages((prev) => [...prev, arrivedMsg])
-  }, [currentChat?.members, arrivedMsg])
+  }, [currentChat, arrivedMsg])
 
 
   useEffect(() => {
     socket?.current.emit('addUser', user.otherDetails._id);
     socket?.current.on('getUsers', (users) => {
-      console.log(users);
+      setOnlineUsers(
+        user.otherDetails.followings.filter((f) => users.some((u) => u.userId === f))
+      );
     })
-  }, [user.otherDetails._id])
+  }, [user])
 
 
 
@@ -62,16 +65,15 @@ const Messeger = () => {
 
 
   useEffect(() => {
-    const getMessages = async () => {
+    (async () => {
       try {
         const res = await SERVER.get(`msg/${currentChat?._id}`);
         setMessages(res.data)
       } catch (error) {
         console.error(error)
       }
-    }
-    getMessages();
-  }, [currentChat?._id])
+    })();
+  }, [currentChat])
 
 
   const sendMessage = async () => {
@@ -143,7 +145,12 @@ const Messeger = () => {
 
        <section className="chatOnline">
          <div className="onlineWrap">
-          <ChatOnline/>
+          <ChatOnline 
+            onlineUsers={onlineUsers} 
+            currentId={user?.otherDetails._id} 
+            setCurrentChat={setCurrentChat}
+          />
+
          </div>
        </section>
     </div>
@@ -152,4 +159,4 @@ const Messeger = () => {
   )
 }
 
-export default Messeger
+export default Messeger;
